@@ -27,6 +27,8 @@ dotnet run --project samples/DevExpressInspiredControls.Demo/DevExpressInspiredC
 - Preserve keyboard navigation, access keys, focus visuals, validation, and UI
   Automation behavior.
 - Add gallery states and STA tests for every new control.
+- Regenerate control screenshots after visual changes:
+  `dotnet run --project tools/DevExpressInspiredControls.Capture -- docs/images/controls`
 - Do not copy or redistribute proprietary source, icons, or extracted assets.
 
 ## Pull requests

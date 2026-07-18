@@ -8,4 +8,7 @@
   <Folder Name="/src/">
     <Project Path="src/DevExpressInspiredControls/DevExpressInspiredControls.csproj" />
   </Folder>
+  <Folder Name="/tools/">
+    <Project Path="tools/DevExpressInspiredControls.Capture/DevExpressInspiredControls.Capture.csproj" />
+  </Folder>
 </Solution>

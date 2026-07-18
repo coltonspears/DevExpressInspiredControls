@@ -17,6 +17,12 @@ dotnet run --project samples/DevExpressInspiredControls.Demo/DevExpressInspiredC
 Record the successful build and test summary before opening the gallery if the
 video is intended as a technical walkthrough.
 
+To regenerate README control previews and the full-gallery PNG:
+
+```powershell
+dotnet run --project tools/DevExpressInspiredControls.Capture -- docs/images/controls
+```
+
 ## Suggested walkthrough
 
 1. Show the `/src`, `/samples`, `/tests`, and `/docs` repository layout.

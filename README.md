@@ -8,45 +8,46 @@ UI Automation.
 This is an independent project. It does not include or redistribute DevExpress
 source code, assemblies, icons, or theme assets.
 
-## Included controls
+**Target framework:** `net10.0-windows`
 
-- Office2019Colorful-inspired `Button`, `TextBox`, `ComboBox`, `CheckBox`, and
-`RadioButton` styles.
-- A bindable, command-capable `ToggleSwitch` custom control.
-- Normal, hover, pressed, focused, selected, read-only, disabled, and validation
-states.
-- Semantic resource tokens that applications can override.
-- An MVVM gallery and STA WPF regression tests.
+## Solution layout
 
-[](/docs/images/preview.bmp)
+| Path | Description |
+|------|-------------|
+| `src/DevExpressInspiredControls` | Control library and theme resources |
+| `samples/DevExpressInspiredControls.Demo` | MVVM gallery application |
+| `tests/DevExpressInspiredControls.Tests` | STA WPF regression tests |
+| `tools/DevExpressInspiredControls.Capture` | Off-screen renderer that writes control PNGs |
+| `docs/images/controls` | Screenshots of each control |
 
-## Repository layout
+## Prerequisites
 
-```text
-src/        Reusable WPF control library
-samples/    MVVM gallery application
-tests/      STA WPF regression tests
-docs/       Usage, architecture, demo, and integration notes
-```
+- Windows 10 or later
+- [.NET 10 SDK](https://dotnet.microsoft.com/download)
+- Visual Studio 2026, Cursor, or another editor with WPF support
 
-## Quick start
-
-Requirements:
-
-- Windows 10 or later.
-- .NET 10 SDK.
-- Visual Studio 2026, Cursor, or another editor with WPF support.
-
-Build, test, and run the gallery:
+## Build
 
 ```powershell
-dotnet restore DevExpressInspiredControls.slnx
 dotnet build DevExpressInspiredControls.slnx
-dotnet test tests/DevExpressInspiredControls.Tests/DevExpressInspiredControls.Tests.csproj
+```
+
+## Run the gallery
+
+```powershell
 dotnet run --project samples/DevExpressInspiredControls.Demo/DevExpressInspiredControls.Demo.csproj
 ```
 
-Reference the library and merge its public theme in `App.xaml`:
+## Test
+
+```powershell
+dotnet test tests/DevExpressInspiredControls.Tests/DevExpressInspiredControls.Tests.csproj
+```
+
+## Using the library
+
+1. Add a project reference to `src/DevExpressInspiredControls/DevExpressInspiredControls.csproj`.
+2. Merge the theme dictionary in `App.xaml`:
 
 ```xml
 <Application.Resources>
@@ -59,7 +60,7 @@ Reference the library and merge its public theme in `App.xaml`:
 </Application.Resources>
 ```
 
-Use the custom switch with normal MVVM bindings:
+3. Use the themed controls and the custom switch with normal MVVM bindings:
 
 ```xml
 <Window
@@ -71,7 +72,38 @@ Use the custom switch with normal MVVM bindings:
 </Window>
 ```
 
+### Demo gallery
 
+![Control gallery](docs/images/Gallery.png)
+
+Regenerate screenshots:
+
+```powershell
+dotnet run --project tools/DevExpressInspiredControls.Capture -- docs/images/controls
+```
+
+#### Buttons
+
+| Control | Preview |
+|---------|---------|
+| `Button` | ![Button](docs/images/controls/Button.png) |
+
+#### Editors
+
+| Control | Preview |
+|---------|---------|
+| `TextBox` | ![TextBox](docs/images/controls/TextBox.png) |
+| `ComboBox` | ![ComboBox](docs/images/controls/ComboBox.png) |
+
+#### Choice
+
+| Control | Preview |
+|---------|---------|
+| `CheckBox` | ![CheckBox](docs/images/controls/CheckBox.png) |
+| `RadioButton` | ![RadioButton](docs/images/controls/RadioButton.png) |
+| `ToggleSwitch` | ![ToggleSwitch](docs/images/controls/ToggleSwitch.png) |
+
+Theme tokens (colors, brushes, fonts, metrics) live under `src/DevExpressInspiredControls/Themes/`.
 
 ## Documentation
 
@@ -80,4 +112,3 @@ Use the custom switch with normal MVVM bindings:
 - [Demo and recording guide](docs/demo-guide.md)
 - [Optional DevExpress integration](docs/devexpress-integration.md)
 - [Contributing](CONTRIBUTING.md)
-
