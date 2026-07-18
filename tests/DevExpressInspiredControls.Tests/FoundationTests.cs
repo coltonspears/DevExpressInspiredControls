@@ -168,22 +168,19 @@ public sealed class FoundationTests
 
     private sealed class BindingSource : INotifyPropertyChanged
     {
-        private bool _isChecked;
-        private string _text = string.Empty;
-
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public bool IsChecked
         {
-            get => _isChecked;
-            set => SetField(ref _isChecked, value);
+            get;
+            set => SetField(ref field, value);
         }
 
         public string Text
         {
-            get => _text;
-            set => SetField(ref _text, value);
-        }
+            get;
+            set => SetField(ref field, value);
+        } = string.Empty;
 
         private void SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
         {

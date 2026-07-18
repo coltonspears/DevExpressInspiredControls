@@ -63,12 +63,13 @@ WPF validation interfaces.
 
 The sample application demonstrates:
 
-- `INotifyPropertyChanged` for state.
-- `ICommand` for actions.
-- `INotifyDataErrorInfo` for editor validation.
+- CommunityToolkit.Mvvm-generated observable properties and commands.
+- `ObservableValidator` with data-annotation validation.
+- `Microsoft.Extensions.DependencyInjection` as the composition root.
 - Labels, access keys, focus behavior, and automation properties.
 
-Its window code-behind contains initialization only.
+Its window code-behind contains initialization and constructor injection only.
+Control interactions remain in bindings and commands rather than event handlers.
 
 ## Verification
 

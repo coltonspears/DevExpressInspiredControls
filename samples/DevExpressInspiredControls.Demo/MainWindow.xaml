@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:DevExpressInspiredControls.Controls;assembly=DevExpressInspiredControls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:DevExpressInspiredControls.Demo"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Office 2019 Colorful Control Gallery"
     Width="980"
@@ -15,9 +14,6 @@
     FontFamily="{DynamicResource DxFontFamily}"
     Foreground="{DynamicResource DxTextBrush}"
     mc:Ignorable="d">
-    <Window.DataContext>
-        <local:MainViewModel />
-    </Window.DataContext>
     <Window.Resources>
         <Style x:Key="SectionBorderStyle" TargetType="{x:Type Border}">
             <Setter Property="Margin" Value="0,0,0,16" />

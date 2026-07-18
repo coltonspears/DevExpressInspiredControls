@@ -11,12 +11,14 @@ source code, assemblies, icons, or theme assets.
 ## Included controls
 
 - Office2019Colorful-inspired `Button`, `TextBox`, `ComboBox`, `CheckBox`, and
-  `RadioButton` styles.
+`RadioButton` styles.
 - A bindable, command-capable `ToggleSwitch` custom control.
 - Normal, hover, pressed, focused, selected, read-only, disabled, and validation
-  states.
+states.
 - Semantic resource tokens that applications can override.
 - An MVVM gallery and STA WPF regression tests.
+
+[](/docs/images/preview.bmp)
 
 ## Repository layout
 
@@ -69,6 +71,8 @@ Use the custom switch with normal MVVM bindings:
 </Window>
 ```
 
+
+
 ## Documentation
 
 - [Getting started](docs/getting-started.md)
@@ -77,9 +81,3 @@ Use the custom switch with normal MVVM bindings:
 - [Optional DevExpress integration](docs/devexpress-integration.md)
 - [Contributing](CONTRIBUTING.md)
 
-## Status
-
-The current milestone establishes the theme foundation and common input
-controls. More complex editors, navigation controls, and data controls can be
-added incrementally without introducing a DevExpress dependency into the core
-package.
