@@ -12,6 +12,7 @@
     <Color x:Key="DxColorSurfaceHover">#FFF0F3F8</Color>
     <Color x:Key="DxColorSurfacePressed">#FFE1E7F0</Color>
     <Color x:Key="DxColorSurfaceReadOnly">#FFF2F2F2</Color>
+    <Color x:Key="DxColorSurfaceSubtle">#FFFAFAFA</Color>
     <Color x:Key="DxColorBorder">#FFB7B7B7</Color>
     <Color x:Key="DxColorBorderStrong">#FF7A7A7A</Color>
     <Color x:Key="DxColorText">#FF2B2B2B</Color>
@@ -19,6 +20,7 @@
     <Color x:Key="DxColorTextDisabled">#FF9B9B9B</Color>
     <Color x:Key="DxColorDisabled">#FFE6E6E6</Color>
     <Color x:Key="DxColorSelection">#FFDCE6F5</Color>
+    <Color x:Key="DxColorSelectionInactive">#FFE8E8E8</Color>
     <Color x:Key="DxColorError">#FFC42B1C</Color>
 
     <SolidColorBrush x:Key="DxAccentBrush" Color="{StaticResource DxColorAccent}" />
@@ -29,6 +31,7 @@
     <SolidColorBrush x:Key="DxSurfaceHoverBrush" Color="{StaticResource DxColorSurfaceHover}" />
     <SolidColorBrush x:Key="DxSurfacePressedBrush" Color="{StaticResource DxColorSurfacePressed}" />
     <SolidColorBrush x:Key="DxSurfaceReadOnlyBrush" Color="{StaticResource DxColorSurfaceReadOnly}" />
+    <SolidColorBrush x:Key="DxSurfaceSubtleBrush" Color="{StaticResource DxColorSurfaceSubtle}" />
     <SolidColorBrush x:Key="DxBorderBrush" Color="{StaticResource DxColorBorder}" />
     <SolidColorBrush x:Key="DxBorderStrongBrush" Color="{StaticResource DxColorBorderStrong}" />
     <SolidColorBrush x:Key="DxTextBrush" Color="{StaticResource DxColorText}" />
@@ -36,6 +39,7 @@
     <SolidColorBrush x:Key="DxTextDisabledBrush" Color="{StaticResource DxColorTextDisabled}" />
     <SolidColorBrush x:Key="DxDisabledBrush" Color="{StaticResource DxColorDisabled}" />
     <SolidColorBrush x:Key="DxSelectionBrush" Color="{StaticResource DxColorSelection}" />
+    <SolidColorBrush x:Key="DxSelectionInactiveBrush" Color="{StaticResource DxColorSelectionInactive}" />
     <SolidColorBrush x:Key="DxErrorBrush" Color="{StaticResource DxColorError}" />
     <SolidColorBrush x:Key="DxOnAccentTextBrush" Color="White" />
     <SolidColorBrush x:Key="DxTransparentBrush" Color="Transparent" />
@@ -44,11 +48,35 @@
     <sys:Double x:Key="DxHeaderFontSize">20</sys:Double>
     <sys:Double x:Key="DxControlHeight">28</sys:Double>
     <sys:Double x:Key="DxIndicatorSize">16</sys:Double>
+    <sys:Double x:Key="DxListItemMinHeight">30</sys:Double>
+    <sys:Double x:Key="DxColumnHeaderHeight">30</sys:Double>
+    <sys:Double x:Key="DxScrollBarThickness">12</sys:Double>
+    <sys:Double x:Key="DxIconButtonSize">28</sys:Double>
+    <sys:Double x:Key="DxMenuItemMinHeight">26</sys:Double>
+    <sys:Double x:Key="DxToolBarHeight">32</sys:Double>
+    <sys:Double x:Key="DxStatusBarHeight">24</sys:Double>
+    <sys:Double x:Key="DxTabItemMinHeight">30</sys:Double>
+    <sys:Double x:Key="DxExpanderHeaderMinHeight">30</sys:Double>
+    <sys:Double x:Key="DxGridSplitterThickness">5</sys:Double>
+    <sys:Double x:Key="DxRichTextMinHeight">96</sys:Double>
+    <sys:Double x:Key="DxCalendarDaySize">30</sys:Double>
+    <sys:Double x:Key="DxSliderTrackThickness">4</sys:Double>
+    <sys:Double x:Key="DxSliderThumbSize">16</sys:Double>
+    <sys:Double x:Key="DxProgressBarHeight">8</sys:Double>
     <sys:Double x:Key="DxBorderThickness">1</sys:Double>
     <FontFamily x:Key="DxFontFamily">Segoe UI</FontFamily>
     <CornerRadius x:Key="DxCornerRadius">2</CornerRadius>
     <Thickness x:Key="DxControlPadding">9,4</Thickness>
     <Thickness x:Key="DxEditorPadding">7,3</Thickness>
+    <Thickness x:Key="DxItemPadding">8,5</Thickness>
+    <Thickness x:Key="DxMenuItemPadding">10,5</Thickness>
+    <Thickness x:Key="DxPopupPadding">8</Thickness>
+    <Thickness x:Key="DxToolTipPadding">8,5</Thickness>
+    <Thickness x:Key="DxTabItemPadding">12,6</Thickness>
+    <Thickness x:Key="DxGroupBoxPadding">10</Thickness>
+    <Thickness x:Key="DxGroupBoxHeaderPadding">6,0</Thickness>
+    <Thickness x:Key="DxTreeItemPadding">6,4</Thickness>
+    <Thickness x:Key="DxTreeIndent">18,0,0,0</Thickness>
     <Thickness x:Key="DxFocusThickness">2</Thickness>
 
     <Style x:Key="DxFocusVisualStyle" TargetType="{x:Type Control}">

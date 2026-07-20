@@ -1,0 +1,186 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style x:Key="DxSliderTrackButtonStyle" TargetType="{x:Type RepeatButton}">
+        <Setter Property="Background" Value="{DynamicResource DxBorderBrush}" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RepeatButton}">
+                    <Border Background="{TemplateBinding Background}" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style
+        x:Key="DxSliderSelectedTrackButtonStyle"
+        BasedOn="{StaticResource DxSliderTrackButtonStyle}"
+        TargetType="{x:Type RepeatButton}">
+        <Setter Property="Background" Value="{DynamicResource DxAccentBrush}" />
+    </Style>
+
+    <Style x:Key="DxSliderThumbStyle" TargetType="{x:Type Thumb}">
+        <Setter Property="Background" Value="{DynamicResource DxSurfaceBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource DxAccentBrush}" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="Height" Value="{DynamicResource DxSliderThumbSize}" />
+        <Setter Property="Width" Value="{DynamicResource DxSliderThumbSize}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Thumb}">
+                    <Ellipse
+                        x:Name="ThumbChrome"
+                        Fill="{TemplateBinding Background}"
+                        Stroke="{TemplateBinding BorderBrush}"
+                        StrokeThickness="{TemplateBinding BorderThickness}" />
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ThumbChrome" Property="Fill" Value="{DynamicResource DxSurfaceHoverBrush}" />
+                            <Setter TargetName="ThumbChrome" Property="Stroke" Value="{DynamicResource DxAccentHoverBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsDragging" Value="True">
+                            <Setter TargetName="ThumbChrome" Property="Fill" Value="{DynamicResource DxAccentBrush}" />
+                            <Setter TargetName="ThumbChrome" Property="Stroke" Value="{DynamicResource DxAccentPressedBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="ThumbChrome" Property="Fill" Value="{DynamicResource DxDisabledBrush}" />
+                            <Setter TargetName="ThumbChrome" Property="Stroke" Value="{DynamicResource DxBorderBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <ControlTemplate x:Key="DxHorizontalSliderTemplate" TargetType="{x:Type Slider}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="5" />
+            </Grid.RowDefinitions>
+            <Grid
+                Height="{DynamicResource DxSliderThumbSize}"
+                VerticalAlignment="Center">
+                <Border
+                    Height="{DynamicResource DxSliderTrackThickness}"
+                    VerticalAlignment="Center"
+                    Background="{DynamicResource DxBorderBrush}"
+                    CornerRadius="{DynamicResource DxCornerRadius}" />
+                <Track
+                    x:Name="PART_Track"
+                    IsDirectionReversed="False"
+                    Maximum="{TemplateBinding Maximum}"
+                    Minimum="{TemplateBinding Minimum}"
+                    Orientation="Horizontal"
+                    Value="{TemplateBinding Value}">
+                    <Track.DecreaseRepeatButton>
+                        <RepeatButton Style="{StaticResource DxSliderSelectedTrackButtonStyle}" />
+                    </Track.DecreaseRepeatButton>
+                    <Track.Thumb>
+                        <Thumb Style="{StaticResource DxSliderThumbStyle}" />
+                    </Track.Thumb>
+                    <Track.IncreaseRepeatButton>
+                        <RepeatButton Style="{StaticResource DxSliderTrackButtonStyle}" />
+                    </Track.IncreaseRepeatButton>
+                </Track>
+            </Grid>
+            <TickBar
+                x:Name="TickMarks"
+                Grid.Row="1"
+                Height="4"
+                Fill="{DynamicResource DxTextSecondaryBrush}"
+                IsDirectionReversed="False"
+                Maximum="{TemplateBinding Maximum}"
+                Minimum="{TemplateBinding Minimum}"
+                Placement="Bottom"
+                ReservedSpace="{DynamicResource DxSliderThumbSize}"
+                TickFrequency="{TemplateBinding TickFrequency}"
+                Ticks="{TemplateBinding Ticks}"
+                Visibility="Collapsed" />
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="TickPlacement" Value="BottomRight">
+                <Setter TargetName="TickMarks" Property="Visibility" Value="Visible" />
+            </Trigger>
+            <Trigger Property="TickPlacement" Value="Both">
+                <Setter TargetName="TickMarks" Property="Visibility" Value="Visible" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="DxVerticalSliderTemplate" TargetType="{x:Type Slider}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="5" />
+            </Grid.ColumnDefinitions>
+            <Grid
+                Width="{DynamicResource DxSliderThumbSize}"
+                HorizontalAlignment="Center">
+                <Border
+                    Width="{DynamicResource DxSliderTrackThickness}"
+                    HorizontalAlignment="Center"
+                    Background="{DynamicResource DxBorderBrush}"
+                    CornerRadius="{DynamicResource DxCornerRadius}" />
+                <Track
+                    x:Name="PART_Track"
+                    IsDirectionReversed="True"
+                    Maximum="{TemplateBinding Maximum}"
+                    Minimum="{TemplateBinding Minimum}"
+                    Orientation="Vertical"
+                    Value="{TemplateBinding Value}">
+                    <Track.DecreaseRepeatButton>
+                        <RepeatButton Style="{StaticResource DxSliderSelectedTrackButtonStyle}" />
+                    </Track.DecreaseRepeatButton>
+                    <Track.Thumb>
+                        <Thumb Style="{StaticResource DxSliderThumbStyle}" />
+                    </Track.Thumb>
+                    <Track.IncreaseRepeatButton>
+                        <RepeatButton Style="{StaticResource DxSliderTrackButtonStyle}" />
+                    </Track.IncreaseRepeatButton>
+                </Track>
+            </Grid>
+            <TickBar
+                x:Name="TickMarks"
+                Grid.Column="1"
+                Width="4"
+                Fill="{DynamicResource DxTextSecondaryBrush}"
+                IsDirectionReversed="True"
+                Maximum="{TemplateBinding Maximum}"
+                Minimum="{TemplateBinding Minimum}"
+                Placement="Right"
+                ReservedSpace="{DynamicResource DxSliderThumbSize}"
+                TickFrequency="{TemplateBinding TickFrequency}"
+                Ticks="{TemplateBinding Ticks}"
+                Visibility="Collapsed" />
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="TickPlacement" Value="BottomRight">
+                <Setter TargetName="TickMarks" Property="Visibility" Value="Visible" />
+            </Trigger>
+            <Trigger Property="TickPlacement" Value="Both">
+                <Setter TargetName="TickMarks" Property="Visibility" Value="Visible" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style x:Key="DxSliderStyle" TargetType="{x:Type Slider}">
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource DxFocusVisualStyle}" />
+        <Setter Property="IsMoveToPointEnabled" Value="True" />
+        <Setter Property="MinHeight" Value="24" />
+        <Setter Property="MinWidth" Value="80" />
+        <Setter Property="Template" Value="{StaticResource DxHorizontalSliderTemplate}" />
+        <Style.Triggers>
+            <Trigger Property="Orientation" Value="Vertical">
+                <Setter Property="MinHeight" Value="80" />
+                <Setter Property="MinWidth" Value="24" />
+                <Setter Property="Template" Value="{StaticResource DxVerticalSliderTemplate}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="{x:Type Slider}" BasedOn="{StaticResource DxSliderStyle}" />
+</ResourceDictionary>

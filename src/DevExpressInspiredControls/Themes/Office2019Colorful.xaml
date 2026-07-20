@@ -4,9 +4,31 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/DevExpressInspiredControls;component/Themes/Tokens/Office2019Colorful.Tokens.xaml" />
         <ResourceDictionary Source="/DevExpressInspiredControls;component/Themes/Controls/Button.xaml" />
+        <ResourceDictionary Source="/DevExpressInspiredControls;component/Themes/Controls/ToggleButton.xaml" />
+        <ResourceDictionary Source="/DevExpressInspiredControls;component/Themes/Controls/RepeatButton.xaml" />
         <ResourceDictionary Source="/DevExpressInspiredControls;component/Themes/Controls/TextBox.xaml" />
         <ResourceDictionary Source="/DevExpressInspiredControls;component/Themes/Controls/ComboBox.xaml" />
         <ResourceDictionary Source="/DevExpressInspiredControls;component/Themes/Controls/CheckBox.xaml" />
         <ResourceDictionary Source="/DevExpressInspiredControls;component/Themes/Controls/RadioButton.xaml" />
+        <ResourceDictionary Source="/DevExpressInspiredControls;component/Themes/Controls/ScrollBar.xaml" />
+        <ResourceDictionary Source="/DevExpressInspiredControls;component/Themes/Controls/ScrollViewer.xaml" />
+        <ResourceDictionary Source="/DevExpressInspiredControls;component/Themes/Controls/ListBox.xaml" />
+        <ResourceDictionary Source="/DevExpressInspiredControls;component/Themes/Controls/ListView.xaml" />
+        <ResourceDictionary Source="/DevExpressInspiredControls;component/Themes/Controls/TreeView.xaml" />
+        <ResourceDictionary Source="/DevExpressInspiredControls;component/Themes/Controls/Popup.xaml" />
+        <ResourceDictionary Source="/DevExpressInspiredControls;component/Themes/Controls/Menu.xaml" />
+        <ResourceDictionary Source="/DevExpressInspiredControls;component/Themes/Controls/ToolBar.xaml" />
+        <ResourceDictionary Source="/DevExpressInspiredControls;component/Themes/Controls/ToolTip.xaml" />
+        <ResourceDictionary Source="/DevExpressInspiredControls;component/Themes/Controls/StatusBar.xaml" />
+        <ResourceDictionary Source="/DevExpressInspiredControls;component/Themes/Controls/TabControl.xaml" />
+        <ResourceDictionary Source="/DevExpressInspiredControls;component/Themes/Controls/Expander.xaml" />
+        <ResourceDictionary Source="/DevExpressInspiredControls;component/Themes/Controls/GroupBox.xaml" />
+        <ResourceDictionary Source="/DevExpressInspiredControls;component/Themes/Controls/GridSplitter.xaml" />
+        <ResourceDictionary Source="/DevExpressInspiredControls;component/Themes/Controls/PasswordBox.xaml" />
+        <ResourceDictionary Source="/DevExpressInspiredControls;component/Themes/Controls/RichTextBox.xaml" />
+        <ResourceDictionary Source="/DevExpressInspiredControls;component/Themes/Controls/Calendar.xaml" />
+        <ResourceDictionary Source="/DevExpressInspiredControls;component/Themes/Controls/DatePicker.xaml" />
+        <ResourceDictionary Source="/DevExpressInspiredControls;component/Themes/Controls/Slider.xaml" />
+        <ResourceDictionary Source="/DevExpressInspiredControls;component/Themes/Controls/ProgressBar.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

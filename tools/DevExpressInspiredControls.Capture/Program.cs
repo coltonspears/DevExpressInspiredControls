@@ -1,6 +1,7 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -137,8 +138,345 @@ internal static class Program
                         IsEnabled = false
                     }
                 }
-            }))
+            })),
+            ("CommandButtons", CommandButtonsCard),
+            ("Menu", MenuCard),
+            ("ToolBar", ToolBarCard),
+            ("TransientUi", TransientUiCard),
+            ("SearchComposition", SearchCompositionCard),
+            ("LayoutNavigation", LayoutNavigationCard),
+            ("ExtendedEditors", ExtendedEditorsCard),
+            ("DateTime", DateTimeCard),
+            ("ProgressRange", ProgressRangeCard)
         ];
+
+    private static FrameworkElement CommandButtonsCard()
+    {
+        var iconButton = new Button
+        {
+            Style = ThemeStyle("DxIconButtonStyle"),
+            ToolTip = "Create"
+        };
+        iconButton.Content = new System.Windows.Shapes.Path
+        {
+            Width = 12,
+            Height = 12,
+            Data = Geometry.Parse("M 6 0 L 6 12 M 0 6 L 12 6"),
+            Stroke = ThemeBrush("DxTextBrush"),
+            StrokeThickness = 2
+        };
+
+        return Card("Command buttons", new WrapPanel
+        {
+            Children =
+            {
+                new ToggleButton
+                {
+                    Content = "Checked",
+                    IsChecked = true,
+                    MinWidth = 90,
+                    Margin = new Thickness(0, 0, 10, 0)
+                },
+                new ToggleButton
+                {
+                    Content = "Disabled",
+                    IsChecked = true,
+                    IsEnabled = false,
+                    MinWidth = 90,
+                    Margin = new Thickness(0, 0, 10, 0)
+                },
+                new RepeatButton
+                {
+                    Content = "Hold +",
+                    MinWidth = 80,
+                    Margin = new Thickness(0, 0, 10, 0)
+                },
+                iconButton
+            }
+        });
+    }
+
+    private static FrameworkElement MenuCard()
+    {
+        var file = new MenuItem { Header = "_File" };
+        file.Items.Add(new MenuItem { Header = "_New", InputGestureText = "Ctrl+N" });
+        file.Items.Add(new MenuItem { Header = "_Save", InputGestureText = "Ctrl+S" });
+        file.Items.Add(new Separator());
+        file.Items.Add(new MenuItem { Header = "Unavailable", IsEnabled = false });
+
+        var view = new MenuItem { Header = "_View" };
+        view.Items.Add(new MenuItem { Header = "_Feature enabled", IsCheckable = true, IsChecked = true });
+
+        var menu = new Menu();
+        menu.Items.Add(file);
+        menu.Items.Add(view);
+
+        var contextHost = new Border
+        {
+            Margin = new Thickness(0, 10, 0, 0),
+            Padding = new Thickness(10),
+            Background = ThemeBrush("DxSurfaceSubtleBrush"),
+            BorderBrush = ThemeBrush("DxBorderBrush"),
+            BorderThickness = new Thickness(1),
+            Child = new TextBlock { Text = "Right-click target with themed ContextMenu" }
+        };
+        var contextMenu = new ContextMenu();
+        contextMenu.Items.Add(new MenuItem { Header = "_Open" });
+        contextMenu.Items.Add(new MenuItem { Header = "_Remove" });
+        contextHost.ContextMenu = contextMenu;
+
+        return Card("Menu and ContextMenu", new StackPanel
+        {
+            Width = 420,
+            Children = { menu, contextHost }
+        });
+    }
+
+    private static FrameworkElement ToolBarCard()
+    {
+        var toolBar = new ToolBar { Width = 430 };
+        toolBar.Items.Add(new Button { Content = "_New" });
+        toolBar.Items.Add(new Button { Content = "_Save" });
+        toolBar.Items.Add(new Separator());
+        toolBar.Items.Add(new ToggleButton { Content = "_Feature", IsChecked = true });
+        var overflow = new Button { Content = "Overflow command" };
+        ToolBar.SetOverflowMode(overflow, OverflowMode.Always);
+        toolBar.Items.Add(overflow);
+
+        return Card("ToolBar and Separator", new ToolBarTray
+        {
+            Width = 430,
+            ToolBars = { toolBar }
+        });
+    }
+
+    private static FrameworkElement TransientUiCard()
+    {
+        var popupChrome = new Border
+        {
+            Width = 260,
+            Margin = new Thickness(0, 0, 0, 10),
+            Style = ThemeStyle("DxPopupChromeStyle"),
+            Child = new TextBlock
+            {
+                Text = "Reusable Popup chrome",
+                TextWrapping = TextWrapping.Wrap
+            }
+        };
+        var toolTipHost = new Button
+        {
+            Content = "Hover for themed ToolTip",
+            Margin = new Thickness(0, 0, 0, 10),
+            ToolTip = new ToolTip
+            {
+                Content = "Themed ToolTip"
+            }
+        };
+        var statusBar = new StatusBar
+        {
+            Items =
+            {
+                new StatusBarItem { Content = "Ready" },
+                new StatusBarItem { Content = "3 of 5 items" }
+            }
+        };
+
+        return Card("ToolTip, Popup chrome, and StatusBar", new StackPanel
+        {
+            Width = 420,
+            Children = { popupChrome, toolTipHost, statusBar }
+        });
+    }
+
+    private static FrameworkElement SearchCompositionCard()
+    {
+        var grid = new Grid { Width = 380 };
+        grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+        grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+        var textBox = new TextBox { Text = "arch" };
+        var clearButton = new Button
+        {
+            Margin = new Thickness(6, 0, 0, 0),
+            Style = ThemeStyle("DxIconButtonStyle"),
+            ToolTip = "Clear search"
+        };
+        clearButton.Content = new System.Windows.Shapes.Path
+        {
+            Width = 10,
+            Height = 10,
+            Data = Geometry.Parse("M 1 1 L 9 9 M 9 1 L 1 9"),
+            Stroke = ThemeBrush("DxTextBrush"),
+            StrokeThickness = 1.8
+        };
+        Grid.SetColumn(clearButton, 1);
+        grid.Children.Add(textBox);
+        grid.Children.Add(clearButton);
+        return Card("Search composition", grid);
+    }
+
+    private static FrameworkElement LayoutNavigationCard()
+    {
+        var segments = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 0, 0, 12) };
+        segments.Children.Add(new RadioButton
+        {
+            Content = "Overview",
+            GroupName = "CaptureSegment",
+            IsChecked = true,
+            Style = ThemeStyle("DxSegmentedRadioButtonFirstStyle")
+        });
+        segments.Children.Add(new RadioButton
+        {
+            Content = "Details",
+            GroupName = "CaptureSegment",
+            Style = ThemeStyle("DxSegmentedRadioButtonMiddleStyle")
+        });
+        segments.Children.Add(new RadioButton
+        {
+            Content = "History",
+            GroupName = "CaptureSegment",
+            Style = ThemeStyle("DxSegmentedRadioButtonLastStyle")
+        });
+
+        var tabControl = new TabControl { Height = 145, Margin = new Thickness(0, 0, 0, 12) };
+        tabControl.Items.Add(new TabItem
+        {
+            Header = "General",
+            Content = new GroupBox
+            {
+                Header = "Settings",
+                Margin = new Thickness(4),
+                Content = new TextBlock { Text = "Grouped tab content" }
+            }
+        });
+        tabControl.Items.Add(new TabItem
+        {
+            Header = "Advanced",
+            Content = new Expander
+            {
+                Header = "Advanced options",
+                IsExpanded = true,
+                Margin = new Thickness(4),
+                Padding = new Thickness(8),
+                Content = new CheckBox { Content = "Enable diagnostics", IsChecked = true }
+            }
+        });
+        tabControl.Items.Add(new TabItem { Header = "Disabled", IsEnabled = false });
+
+        var splitGrid = new Grid { Height = 62 };
+        splitGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+        splitGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(5) });
+        splitGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+        var left = new Border
+        {
+            Padding = new Thickness(8),
+            Background = ThemeBrush("DxSurfaceSubtleBrush"),
+            Child = new TextBlock { Text = "Left pane" }
+        };
+        var splitter = new GridSplitter
+        {
+            HorizontalAlignment = HorizontalAlignment.Stretch,
+            ResizeDirection = GridResizeDirection.Columns,
+            ResizeBehavior = GridResizeBehavior.PreviousAndNext
+        };
+        var right = new Border
+        {
+            Padding = new Thickness(8),
+            Background = ThemeBrush("DxSelectionInactiveBrush"),
+            Child = new TextBlock { Text = "Right pane" }
+        };
+        Grid.SetColumn(splitter, 1);
+        Grid.SetColumn(right, 2);
+        splitGrid.Children.Add(left);
+        splitGrid.Children.Add(splitter);
+        splitGrid.Children.Add(right);
+
+        return Card("Layout and navigation", new StackPanel
+        {
+            Width = 520,
+            Children = { segments, tabControl, splitGrid }
+        });
+    }
+
+    private static FrameworkElement ExtendedEditorsCard()
+    {
+        var password = new PasswordBox { Password = "sample", Margin = new Thickness(0, 0, 0, 8) };
+        var disabledPassword = new PasswordBox { IsEnabled = false, Margin = new Thickness(0, 0, 0, 12) };
+        var richText = new RichTextBox { Height = 110 };
+        richText.Document.Blocks.Add(new Paragraph(new Run("Formatted notes retain native editing and scrolling."))
+        {
+            FontWeight = FontWeights.SemiBold
+        });
+
+        return Card("PasswordBox and RichTextBox", new StackPanel
+        {
+            Width = 430,
+            Children =
+            {
+                Labeled("Password", password),
+                Labeled("Disabled", disabledPassword),
+                Labeled("Notes", richText)
+            }
+        });
+    }
+
+    private static FrameworkElement DateTimeCard()
+    {
+        var selectedDate = new DateTime(2026, 7, 19);
+        return Card("DatePicker and Calendar", new StackPanel
+        {
+            Width = 470,
+            Children =
+            {
+                new DatePicker
+                {
+                    SelectedDate = selectedDate,
+                    Margin = new Thickness(0, 0, 0, 12)
+                },
+                new Calendar
+                {
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    SelectedDate = selectedDate
+                }
+            }
+        });
+    }
+
+    private static FrameworkElement ProgressRangeCard()
+    {
+        return Card("Slider and ProgressBar", new StackPanel
+        {
+            Width = 430,
+            Children =
+            {
+                new Slider
+                {
+                    Maximum = 100,
+                    Value = 65,
+                    TickFrequency = 10,
+                    TickPlacement = TickPlacement.BottomRight,
+                    IsSnapToTickEnabled = true,
+                    Margin = new Thickness(0, 0, 0, 14)
+                },
+                new ProgressBar
+                {
+                    Maximum = 100,
+                    Value = 65,
+                    Margin = new Thickness(0, 0, 0, 12)
+                },
+                new ProgressBar
+                {
+                    IsIndeterminate = true,
+                    Margin = new Thickness(0, 0, 0, 12)
+                },
+                new ProgressBar
+                {
+                    IsEnabled = false,
+                    Maximum = 100,
+                    Value = 40
+                }
+            }
+        });
+    }
 
     private static void CaptureGallery(string path)
     {
@@ -152,8 +490,8 @@ internal static class Program
             ShowActivated = false,
             Width = 980,
             // Tall enough that the gallery content is fully visible (no scroll clip).
-            Height = 1200,
-            MinHeight = 1200
+            Height = 4300,
+            MinHeight = 4300
         };
 
         try
@@ -226,6 +564,10 @@ internal static class Program
     private static Brush ThemeBrush(string key)
         => Application.Current?.TryFindResource(key) as Brush
            ?? new SolidColorBrush(Colors.White);
+
+    private static Style ThemeStyle(string key)
+        => Application.Current?.TryFindResource(key) as Style
+           ?? throw new InvalidOperationException($"Theme style '{key}' was not found.");
 
     private static void CaptureToFile(FrameworkElement visual, string path, bool sizeToContent)
     {

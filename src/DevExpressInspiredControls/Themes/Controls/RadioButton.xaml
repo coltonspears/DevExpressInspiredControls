@@ -67,5 +67,91 @@
         </Setter>
     </Style>
 
+    <Style
+        x:Key="DxSegmentedRadioButtonStyle"
+        BasedOn="{StaticResource DxRadioButtonStyle}"
+        TargetType="{x:Type RadioButton}">
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="MinWidth" Value="86" />
+        <Setter Property="Padding" Value="{DynamicResource DxControlPadding}" />
+        <Setter Property="Tag">
+            <Setter.Value>
+                <CornerRadius>0</CornerRadius>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RadioButton}">
+                    <Border
+                        x:Name="SegmentChrome"
+                        MinHeight="{TemplateBinding MinHeight}"
+                        Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding Tag}"
+                        SnapsToDevicePixels="True">
+                        <ContentPresenter
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            ContentSource="Content"
+                            RecognizesAccessKey="True" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="SegmentChrome" Property="Background" Value="{DynamicResource DxSurfaceHoverBrush}" />
+                            <Setter TargetName="SegmentChrome" Property="BorderBrush" Value="{DynamicResource DxAccentBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="SegmentChrome" Property="Background" Value="{DynamicResource DxAccentBrush}" />
+                            <Setter TargetName="SegmentChrome" Property="BorderBrush" Value="{DynamicResource DxAccentBrush}" />
+                            <Setter Property="Foreground" Value="{DynamicResource DxOnAccentTextBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter TargetName="SegmentChrome" Property="BorderBrush" Value="{DynamicResource DxAccentPressedBrush}" />
+                            <Setter TargetName="SegmentChrome" Property="BorderThickness" Value="2" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="SegmentChrome" Property="Background" Value="{DynamicResource DxDisabledBrush}" />
+                            <Setter TargetName="SegmentChrome" Property="BorderBrush" Value="{DynamicResource DxBorderBrush}" />
+                            <Setter Property="Foreground" Value="{DynamicResource DxTextDisabledBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style
+        x:Key="DxSegmentedRadioButtonFirstStyle"
+        BasedOn="{StaticResource DxSegmentedRadioButtonStyle}"
+        TargetType="{x:Type RadioButton}">
+        <Setter Property="Tag">
+            <Setter.Value>
+                <CornerRadius>2,0,0,2</CornerRadius>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style
+        x:Key="DxSegmentedRadioButtonMiddleStyle"
+        BasedOn="{StaticResource DxSegmentedRadioButtonStyle}"
+        TargetType="{x:Type RadioButton}">
+        <Setter Property="Margin" Value="-1,0,0,0" />
+    </Style>
+
+    <Style
+        x:Key="DxSegmentedRadioButtonLastStyle"
+        BasedOn="{StaticResource DxSegmentedRadioButtonStyle}"
+        TargetType="{x:Type RadioButton}">
+        <Setter Property="Margin" Value="-1,0,0,0" />
+        <Setter Property="Tag">
+            <Setter.Value>
+                <CornerRadius>0,2,2,0</CornerRadius>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style TargetType="{x:Type RadioButton}" BasedOn="{StaticResource DxRadioButtonStyle}" />
 </ResourceDictionary>

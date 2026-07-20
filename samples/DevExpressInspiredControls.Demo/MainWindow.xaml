@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:DevExpressInspiredControls.Controls;assembly=DevExpressInspiredControls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:DevExpressInspiredControls.Demo"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Office 2019 Colorful Control Gallery"
     Width="980"
@@ -32,6 +33,24 @@
             <Setter Property="Padding" Value="0,5,12,5" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
         </Style>
+        <Style
+            x:Key="GalleryListBoxItemStyle"
+            BasedOn="{StaticResource DxListBoxItemStyle}"
+            TargetType="{x:Type ListBoxItem}">
+            <Setter Property="IsEnabled" Value="{Binding IsEnabled}" />
+        </Style>
+        <Style
+            x:Key="GalleryTreeViewItemStyle"
+            BasedOn="{StaticResource DxTreeViewItemStyle}"
+            TargetType="{x:Type TreeViewItem}">
+            <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=OneTime}" />
+        </Style>
+        <HierarchicalDataTemplate
+            DataType="{x:Type local:GalleryNode}"
+            ItemContainerStyle="{StaticResource GalleryTreeViewItemStyle}"
+            ItemsSource="{Binding Children}">
+            <TextBlock Text="{Binding Name}" />
+        </HierarchicalDataTemplate>
     </Window.Resources>
 
     <Grid>
@@ -77,6 +96,305 @@
                                 Content="_Run command" />
                         </WrapPanel>
                         <TextBlock Foreground="{DynamicResource DxTextSecondaryBrush}" Text="{Binding LastAction}" />
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource SectionBorderStyle}">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource SectionTitleStyle}" Text="Layout and navigation" />
+                        <TextBlock
+                            Margin="0,0,0,12"
+                            Foreground="{DynamicResource DxTextSecondaryBrush}"
+                            Text="Native tabs, expanders, groups, split panes, DockPanel composition, and segmented RadioButton navigation."
+                            TextWrapping="Wrap" />
+                        <StackPanel Margin="0,0,0,12" Orientation="Horizontal">
+                            <RadioButton
+                                AutomationProperties.Name="Overview segment"
+                                Content="_Overview"
+                                GroupName="GallerySegment"
+                                IsChecked="True"
+                                Style="{StaticResource DxSegmentedRadioButtonFirstStyle}" />
+                            <RadioButton
+                                AutomationProperties.Name="Details segment"
+                                Content="_Details"
+                                GroupName="GallerySegment"
+                                Style="{StaticResource DxSegmentedRadioButtonMiddleStyle}" />
+                            <RadioButton
+                                AutomationProperties.Name="History segment"
+                                Content="_History"
+                                GroupName="GallerySegment"
+                                Style="{StaticResource DxSegmentedRadioButtonLastStyle}" />
+                        </StackPanel>
+                        <TabControl
+                            Height="275"
+                            AutomationProperties.HelpText="Use Control+Tab or arrow keys to change tabs"
+                            AutomationProperties.Name="Gallery layout tabs"
+                            SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}">
+                            <TabItem Header="_General">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="12" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <GroupBox Header="_Account settings">
+                                        <StackPanel>
+                                            <TextBlock Margin="0,0,0,6" Text="Grouped content keeps native focus and access-key behavior." TextWrapping="Wrap" />
+                                            <TextBox Text="Editable setting" />
+                                        </StackPanel>
+                                    </GroupBox>
+                                    <Expander
+                                        Grid.Column="2"
+                                        AutomationProperties.Name="Advanced options"
+                                        Header="_Advanced options"
+                                        IsExpanded="{Binding IsAdvancedExpanded, Mode=TwoWay}"
+                                        Padding="10">
+                                        <StackPanel>
+                                            <CheckBox Margin="0,0,0,6" Content="Enable diagnostics" IsChecked="True" />
+                                            <CheckBox Content="Disabled option" IsEnabled="False" />
+                                        </StackPanel>
+                                    </Expander>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="_Split panes">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" MinWidth="120" />
+                                        <ColumnDefinition Width="5" />
+                                        <ColumnDefinition Width="*" MinWidth="120" />
+                                    </Grid.ColumnDefinitions>
+                                    <Border Padding="10" Background="{DynamicResource DxSurfaceSubtleBrush}">
+                                        <TextBlock Text="Resizable left pane" />
+                                    </Border>
+                                    <GridSplitter
+                                        Grid.Column="1"
+                                        AutomationProperties.HelpText="Use arrow keys or drag to resize adjacent panes"
+                                        AutomationProperties.Name="Resize gallery panes"
+                                        HorizontalAlignment="Stretch"
+                                        ResizeBehavior="PreviousAndNext"
+                                        ResizeDirection="Columns"
+                                        VerticalAlignment="Stretch" />
+                                    <Border Grid.Column="2" Padding="10" Background="{DynamicResource DxSelectionInactiveBrush}">
+                                        <TextBlock Text="Resizable right pane" />
+                                    </Border>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="_Dock layout">
+                                <DockPanel LastChildFill="True">
+                                    <Border
+                                        DockPanel.Dock="Top"
+                                        Padding="8"
+                                        Background="{DynamicResource DxSurfaceSubtleBrush}">
+                                        <TextBlock FontWeight="SemiBold" Text="Docked command region" />
+                                    </Border>
+                                    <ListBox
+                                        Width="170"
+                                        DockPanel.Dock="Left"
+                                        DisplayMemberPath="Name"
+                                        ItemsSource="{Binding NavigationItems}"
+                                        SelectedIndex="0" />
+                                    <Border Margin="10,0,0,0" Padding="10" BorderBrush="{DynamicResource DxBorderBrush}" BorderThickness="1">
+                                        <TextBlock Text="The final DockPanel child fills the remaining workspace." TextWrapping="Wrap" />
+                                    </Border>
+                                </DockPanel>
+                            </TabItem>
+                            <TabItem Header="Disabled" IsEnabled="False" />
+                        </TabControl>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource SectionBorderStyle}">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource SectionTitleStyle}" Text="Extended editors" />
+                        <TextBlock
+                            Margin="0,0,0,12"
+                            Foreground="{DynamicResource DxTextSecondaryBrush}"
+                            Text="PasswordBox keeps its native secure storage; RichTextBox retains formatted-document editing and scrolling."
+                            TextWrapping="Wrap" />
+                        <Grid Grid.IsSharedSizeScope="True">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" SharedSizeGroup="ExtendedEditorLabels" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Label Style="{StaticResource FieldLabelStyle}" Content="_Password:" Target="{Binding ElementName=GalleryPassword}" />
+                            <PasswordBox
+                                x:Name="GalleryPassword"
+                                Grid.Column="1"
+                                Margin="0,0,0,8"
+                                AutomationProperties.HelpText="Secure password entry; the value is not stored in the view model"
+                                AutomationProperties.Name="Account password" />
+                            <Label Grid.Row="1" Style="{StaticResource FieldLabelStyle}" Content="D_isabled:" Target="{Binding ElementName=DisabledPassword}" />
+                            <PasswordBox
+                                x:Name="DisabledPassword"
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Margin="0,0,0,12"
+                                IsEnabled="False" />
+                            <Label Grid.Row="2" Style="{StaticResource FieldLabelStyle}" Content="_Notes:" Target="{Binding ElementName=NotesEditor}" />
+                            <RichTextBox
+                                x:Name="NotesEditor"
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                Height="118"
+                                Margin="0,0,0,8"
+                                AutomationProperties.Name="Formatted notes editor">
+                                <FlowDocument>
+                                    <Paragraph>
+                                        <Bold>Formatted notes</Bold>
+                                        <Run Text=" retain native document, selection, and keyboard behavior." />
+                                    </Paragraph>
+                                    <Paragraph Foreground="{DynamicResource DxTextSecondaryBrush}">
+                                        Use standard editing shortcuts and scroll when content exceeds the viewport.
+                                    </Paragraph>
+                                </FlowDocument>
+                            </RichTextBox>
+                            <Label Grid.Row="3" Style="{StaticResource FieldLabelStyle}" Content="_Read only:" Target="{Binding ElementName=ReadOnlyNotes}" />
+                            <RichTextBox
+                                x:Name="ReadOnlyNotes"
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                Height="78"
+                                AutomationProperties.Name="Read-only formatted notes"
+                                IsReadOnly="True">
+                                <FlowDocument>
+                                    <Paragraph>Read-only rich text remains selectable.</Paragraph>
+                                </FlowDocument>
+                            </RichTextBox>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource SectionBorderStyle}">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource SectionTitleStyle}" Text="Date and calendar" />
+                        <TextBlock
+                            Margin="0,0,0,12"
+                            Foreground="{DynamicResource DxTextSecondaryBrush}"
+                            Text="DatePicker supports typed dates and its native popup; the standalone Calendar exposes the same selection."
+                            TextWrapping="Wrap" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="280" />
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel>
+                                <Label Style="{StaticResource FieldLabelStyle}" Content="_Schedule date:" Target="{Binding ElementName=ScheduleDate}" />
+                                <DatePicker
+                                    x:Name="ScheduleDate"
+                                    Margin="0,0,0,8"
+                                    AutomationProperties.HelpText="Press F4 or Alt+Down to open the calendar"
+                                    AutomationProperties.Name="Schedule date"
+                                    SelectedDate="{Binding SelectedDate, Mode=TwoWay}" />
+                                <DatePicker
+                                    Margin="0,0,0,12"
+                                    AutomationProperties.Name="Disabled schedule date"
+                                    IsEnabled="False"
+                                    SelectedDate="{Binding SelectedDate}" />
+                                <Button
+                                    MinWidth="110"
+                                    HorizontalAlignment="Left"
+                                    Command="{Binding SelectTodayCommand}"
+                                    Content="Select _today" />
+                                <TextBlock
+                                    Margin="0,10,0,0"
+                                    Foreground="{DynamicResource DxTextSecondaryBrush}"
+                                    Text="{Binding ScheduleSummary}"
+                                    TextWrapping="Wrap" />
+                            </StackPanel>
+                            <Calendar
+                                Grid.Column="2"
+                                HorizontalAlignment="Left"
+                                AutomationProperties.HelpText="Use arrow keys, Home, End, Page Up, and Page Down to navigate"
+                                AutomationProperties.Name="Schedule calendar"
+                                SelectedDate="{Binding SelectedDate, Mode=TwoWay}" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource SectionBorderStyle}">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource SectionTitleStyle}" Text="Progress and range" />
+                        <TextBlock
+                            Margin="0,0,0,12"
+                            Foreground="{DynamicResource DxTextSecondaryBrush}"
+                            Text="Slider retains native range input and ticks; ProgressBar demonstrates determinate, indeterminate, vertical, and disabled states."
+                            TextWrapping="Wrap" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="24" />
+                                <ColumnDefinition Width="130" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel>
+                                <TextBlock Margin="0,0,0,6" FontWeight="SemiBold" Text="Volume" />
+                                <Slider
+                                    Margin="0,0,0,6"
+                                    AutomationProperties.HelpText="Use arrow keys, Page Up, Page Down, Home, or End"
+                                    AutomationProperties.Name="Volume level"
+                                    IsSnapToTickEnabled="True"
+                                    Maximum="100"
+                                    TickFrequency="10"
+                                    TickPlacement="BottomRight"
+                                    Value="{Binding VolumeLevel, Mode=TwoWay}" />
+                                <WrapPanel Margin="0,0,0,14">
+                                    <TextBlock Width="70" VerticalAlignment="Center" Text="{Binding VolumeSummary}" />
+                                    <Button Command="{Binding ResetVolumeCommand}" Content="_Reset volume" />
+                                </WrapPanel>
+                                <TextBlock Margin="0,0,0,6" FontWeight="SemiBold" Text="Activity" />
+                                <ProgressBar
+                                    Margin="0,0,0,10"
+                                    AutomationProperties.LiveSetting="Polite"
+                                    AutomationProperties.Name="Determinate activity progress"
+                                    Maximum="100"
+                                    Value="{Binding ActivityProgress, Mode=OneWay}" />
+                                <ProgressBar
+                                    Margin="0,0,0,10"
+                                    AutomationProperties.Name="Indeterminate activity progress"
+                                    IsIndeterminate="{Binding IsActivityIndeterminate, Mode=OneWay}"
+                                    Value="{Binding ActivityProgress, Mode=OneWay}" />
+                                <ProgressBar
+                                    Margin="0,0,0,10"
+                                    AutomationProperties.Name="Disabled progress"
+                                    IsEnabled="False"
+                                    Value="40" />
+                                <WrapPanel>
+                                    <Button Margin="0,0,8,0" Command="{Binding AdvanceActivityCommand}" Content="_Advance" />
+                                    <Button Command="{Binding ToggleActivityCommand}" Content="_Toggle indeterminate" />
+                                </WrapPanel>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" HorizontalAlignment="Center">
+                                <TextBlock Margin="0,0,0,6" FontWeight="SemiBold" Text="Vertical" />
+                                <Grid Height="150">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="40" />
+                                        <ColumnDefinition Width="30" />
+                                    </Grid.ColumnDefinitions>
+                                    <Slider
+                                        Height="140"
+                                        AutomationProperties.Name="Vertical volume level"
+                                        IsSnapToTickEnabled="True"
+                                        Maximum="100"
+                                        Orientation="Vertical"
+                                        TickFrequency="10"
+                                        TickPlacement="BottomRight"
+                                        Value="{Binding VolumeLevel, Mode=TwoWay}" />
+                                    <ProgressBar
+                                        Grid.Column="1"
+                                        Height="140"
+                                        AutomationProperties.Name="Vertical activity progress"
+                                        Maximum="100"
+                                        Orientation="Vertical"
+                                        Value="{Binding ActivityProgress, Mode=OneWay}" />
+                                </Grid>
+                            </StackPanel>
+                        </Grid>
                     </StackPanel>
                 </Border>
 
@@ -165,6 +483,374 @@
                                 IsChecked="True"
                                 IsEnabled="False" />
                         </WrapPanel>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource SectionBorderStyle}">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource SectionTitleStyle}" Text="Scrolling and collections" />
+                        <TextBlock
+                            Margin="0,0,0,12"
+                            Foreground="{DynamicResource DxTextSecondaryBrush}"
+                            Text="Native WPF selection, hierarchy, columns, virtualization, keyboard navigation, and scrolling."
+                            TextWrapping="Wrap" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="16" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="170" />
+                                <RowDefinition Height="16" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="190" />
+                                <RowDefinition Height="16" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="110" />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Margin="0,0,0,6" FontWeight="SemiBold" Text="ListBox" />
+                            <TextBlock
+                                Grid.Column="2"
+                                Margin="0,0,0,6"
+                                FontWeight="SemiBold"
+                                Text="TreeView" />
+
+                            <ListBox
+                                Grid.Row="1"
+                                AutomationProperties.HelpText="Use Control or Shift to select multiple items"
+                                AutomationProperties.Name="Selectable navigation items"
+                                DisplayMemberPath="Name"
+                                ItemContainerStyle="{StaticResource GalleryListBoxItemStyle}"
+                                ItemsSource="{Binding NavigationItems}"
+                                SelectedIndex="1"
+                                SelectionMode="Extended" />
+
+                            <TreeView
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                AutomationProperties.Name="Hierarchical gallery items"
+                                ItemContainerStyle="{StaticResource GalleryTreeViewItemStyle}"
+                                ItemsSource="{Binding Hierarchy}" />
+
+                            <TextBlock
+                                Grid.Row="3"
+                                Grid.ColumnSpan="3"
+                                Margin="0,0,0,6"
+                                FontWeight="SemiBold"
+                                Text="ListView with GridView columns" />
+
+                            <ListView
+                                Grid.Row="4"
+                                Grid.ColumnSpan="3"
+                                AutomationProperties.Name="Columned gallery records"
+                                ItemsSource="{Binding Records}"
+                                SelectedIndex="1">
+                                <ListView.View>
+                                    <GridView AllowsColumnReorder="True">
+                                        <GridViewColumn
+                                            Width="220"
+                                            DisplayMemberBinding="{Binding Name}"
+                                            Header="_Name" />
+                                        <GridViewColumn
+                                            Width="220"
+                                            DisplayMemberBinding="{Binding Category}"
+                                            Header="_Category" />
+                                        <GridViewColumn
+                                            Width="180"
+                                            DisplayMemberBinding="{Binding Status}"
+                                            Header="_Status" />
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+
+                            <TextBlock
+                                Grid.Row="6"
+                                Grid.ColumnSpan="3"
+                                Margin="0,0,0,6"
+                                FontWeight="SemiBold"
+                                Text="ScrollViewer" />
+
+                            <Border
+                                Grid.Row="7"
+                                Grid.ColumnSpan="3"
+                                Background="{DynamicResource DxSurfaceSubtleBrush}"
+                                BorderBrush="{DynamicResource DxBorderBrush}"
+                                BorderThickness="1">
+                                <ScrollViewer
+                                    Padding="8"
+                                    HorizontalScrollBarVisibility="Auto"
+                                    VerticalScrollBarVisibility="Visible">
+                                    <ItemsControl Width="1000" ItemsSource="{Binding ScrollSamples}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Margin="0,0,0,4" Text="{Binding}" />
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </ScrollViewer>
+                            </Border>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource SectionBorderStyle}">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource SectionTitleStyle}" Text="Command buttons" />
+                        <TextBlock
+                            Margin="0,0,0,12"
+                            Foreground="{DynamicResource DxTextSecondaryBrush}"
+                            Text="Toggle, hold-to-repeat, and icon-only commands retain native WPF command and keyboard behavior."
+                            TextWrapping="Wrap" />
+                        <WrapPanel Margin="0,0,0,12">
+                            <ToggleButton
+                                MinWidth="110"
+                                Margin="0,0,10,10"
+                                AutomationProperties.Name="Feature toggle"
+                                Content="_Toggle feature"
+                                IsChecked="{Binding IsFeatureEnabled, Mode=TwoWay}" />
+                            <ToggleButton
+                                MinWidth="110"
+                                Margin="0,0,10,10"
+                                AutomationProperties.Name="Checked toggle"
+                                Content="Checked"
+                                IsChecked="True" />
+                            <ToggleButton
+                                MinWidth="110"
+                                Margin="0,0,10,10"
+                                Content="Disabled"
+                                IsChecked="True"
+                                IsEnabled="False" />
+                        </WrapPanel>
+                        <WrapPanel Margin="0,0,0,12" VerticalAlignment="Center">
+                            <RepeatButton
+                                Width="42"
+                                Margin="0,0,8,0"
+                                AutomationProperties.HelpText="Hold to decrease zoom"
+                                AutomationProperties.Name="Decrease zoom"
+                                Command="{Binding DecrementZoomCommand}"
+                                Content="−" />
+                            <TextBlock
+                                Width="80"
+                                VerticalAlignment="Center"
+                                AutomationProperties.LiveSetting="Polite"
+                                Text="{Binding ZoomLevel, StringFormat={}{0}%}"
+                                TextAlignment="Center" />
+                            <RepeatButton
+                                Width="42"
+                                Margin="8,0,20,0"
+                                AutomationProperties.HelpText="Hold to increase zoom"
+                                AutomationProperties.Name="Increase zoom"
+                                Command="{Binding IncrementZoomCommand}"
+                                Content="+" />
+                            <Button
+                                Margin="0,0,8,0"
+                                AutomationProperties.Name="Create item"
+                                Command="{Binding CreateCommand}"
+                                Style="{StaticResource DxIconButtonStyle}"
+                                ToolTip="Create">
+                                <Path
+                                    Width="12"
+                                    Height="12"
+                                    Data="M 6 0 L 6 12 M 0 6 L 12 6"
+                                    Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                                    StrokeThickness="2" />
+                            </Button>
+                            <Button
+                                Margin="0,0,8,0"
+                                AutomationProperties.Name="Save"
+                                Command="{Binding SaveCommand}"
+                                Style="{StaticResource DxIconButtonStyle}"
+                                ToolTip="Save">
+                                <Path
+                                    Width="12"
+                                    Height="12"
+                                    Data="M 1 1 L 10 1 L 11 2 L 11 11 L 1 11 Z M 3 1 L 3 5 L 9 5 L 9 1 M 3 8 L 9 8 L 9 11 L 3 11 Z"
+                                    Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                                    StrokeThickness="1.2" />
+                            </Button>
+                            <Button
+                                AutomationProperties.Name="Unavailable icon command"
+                                IsEnabled="False"
+                                Style="{StaticResource DxIconButtonStyle}"
+                                ToolTip="Unavailable">
+                                <Path
+                                    Width="12"
+                                    Height="12"
+                                    Data="M 1 1 L 11 11 M 11 1 L 1 11"
+                                    Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                                    StrokeThickness="2" />
+                            </Button>
+                        </WrapPanel>
+                        <TextBlock Foreground="{DynamicResource DxTextSecondaryBrush}" Text="{Binding LastAction}" />
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource SectionBorderStyle}">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource SectionTitleStyle}" Text="Menus and toolbar" />
+                        <TextBlock
+                            Margin="0,0,0,12"
+                            Foreground="{DynamicResource DxTextSecondaryBrush}"
+                            Text="Use Alt access keys, arrow keys, toolbar overflow, or right-click the list."
+                            TextWrapping="Wrap" />
+                        <Menu AutomationProperties.Name="Gallery menu">
+                            <MenuItem Header="_File">
+                                <MenuItem Command="{Binding CreateCommand}" Header="_New" InputGestureText="Ctrl+N" />
+                                <MenuItem Command="{Binding SaveCommand}" Header="_Save" InputGestureText="Ctrl+S" />
+                                <Separator />
+                                <MenuItem Header="Unavailable command" IsEnabled="False" />
+                            </MenuItem>
+                            <MenuItem Header="_Edit">
+                                <MenuItem Command="{Binding UndoCommand}" Header="_Undo" InputGestureText="Ctrl+Z" />
+                                <MenuItem
+                                    Header="_Feature enabled"
+                                    IsCheckable="True"
+                                    IsChecked="{Binding IsFeatureEnabled, Mode=TwoWay}" />
+                            </MenuItem>
+                            <MenuItem Header="_View">
+                                <MenuItem Header="_Zoom">
+                                    <MenuItem Command="{Binding IncrementZoomCommand}" Header="Zoom _in" InputGestureText="Ctrl++" />
+                                    <MenuItem Command="{Binding DecrementZoomCommand}" Header="Zoom _out" InputGestureText="Ctrl+-" />
+                                </MenuItem>
+                            </MenuItem>
+                        </Menu>
+                        <ToolBarTray Margin="0,8,0,12">
+                            <ToolBar Width="520" AutomationProperties.Name="Gallery command toolbar">
+                                <Button Command="{Binding CreateCommand}" Content="_New" ToolTip="Create a gallery item" />
+                                <Button Command="{Binding SaveCommand}" Content="_Save" ToolTip="Save the current item" />
+                                <Separator />
+                                <Button Command="{Binding UndoCommand}" Content="_Undo" />
+                                <ToggleButton
+                                    AutomationProperties.Name="Toolbar feature toggle"
+                                    Content="_Feature"
+                                    IsChecked="{Binding IsFeatureEnabled, Mode=TwoWay}" />
+                                <Separator />
+                                <Button ToolBar.OverflowMode="Always" Command="{Binding IncrementZoomCommand}" Content="Zoom _in" />
+                                <Button ToolBar.OverflowMode="Always" Command="{Binding DecrementZoomCommand}" Content="Zoom _out" />
+                            </ToolBar>
+                        </ToolBarTray>
+                        <ListBox
+                            Height="112"
+                            AutomationProperties.HelpText="Right-click for commands"
+                            AutomationProperties.Name="Context menu gallery items"
+                            DisplayMemberPath="Name"
+                            ItemsSource="{Binding NavigationItems}"
+                            SelectedIndex="0">
+                            <ListBox.ContextMenu>
+                                <ContextMenu AutomationProperties.Name="Gallery item commands">
+                                    <MenuItem
+                                        Command="{Binding PlacementTarget.DataContext.CreateCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
+                                        Header="_Create" />
+                                    <MenuItem
+                                        Command="{Binding PlacementTarget.DataContext.SaveCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
+                                        Header="_Save" />
+                                    <Separator />
+                                    <MenuItem
+                                        Command="{Binding PlacementTarget.DataContext.UndoCommand, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
+                                        Header="_Undo" />
+                                </ContextMenu>
+                            </ListBox.ContextMenu>
+                        </ListBox>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource SectionBorderStyle}">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource SectionTitleStyle}" Text="Transient UI and status" />
+                        <WrapPanel Margin="0,0,0,12">
+                            <Button MinWidth="120" Margin="0,0,10,0" Content="Hover for help">
+                                <Button.ToolTip>
+                                    <ToolTip Content="Tooltips use the same semantic surface and border tokens." />
+                                </Button.ToolTip>
+                            </Button>
+                            <ToggleButton
+                                x:Name="DetailsToggle"
+                                MinWidth="120"
+                                AutomationProperties.HelpText="Opens reusable popup chrome"
+                                AutomationProperties.Name="Show popup details"
+                                Content="Show _details"
+                                IsChecked="{Binding IsDetailsOpen, Mode=TwoWay}" />
+                            <Popup
+                                IsOpen="{Binding IsChecked, ElementName=DetailsToggle, Mode=TwoWay}"
+                                Placement="Bottom"
+                                PlacementTarget="{Binding ElementName=DetailsToggle}"
+                                StaysOpen="False"
+                                Style="{StaticResource DxPopupStyle}">
+                                <Border Width="260" Style="{StaticResource DxPopupChromeStyle}">
+                                    <StackPanel>
+                                        <TextBlock Margin="0,0,0,4" FontWeight="SemiBold" Text="Reusable popup chrome" />
+                                        <TextBlock
+                                            Foreground="{DynamicResource DxTextSecondaryBrush}"
+                                            Text="Consumers provide content while the theme supplies surface, border, padding, and corner radius."
+                                            TextWrapping="Wrap" />
+                                    </StackPanel>
+                                </Border>
+                            </Popup>
+                        </WrapPanel>
+                        <StatusBar AutomationProperties.Name="Gallery status">
+                            <StatusBarItem Content="Ready" />
+                            <Separator />
+                            <StatusBarItem Content="{Binding LastAction}" />
+                            <Separator />
+                            <StatusBarItem Content="{Binding SearchSummary}" />
+                        </StatusBar>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource SectionBorderStyle}">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource SectionTitleStyle}" Text="Search composition" />
+                        <TextBlock
+                            Margin="0,0,0,12"
+                            Foreground="{DynamicResource DxTextSecondaryBrush}"
+                            Text="A search presentation is composed from TextBox, an icon Button, bindings, and a filtered native ListBox."
+                            TextWrapping="Wrap" />
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="260" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label
+                                Style="{StaticResource FieldLabelStyle}"
+                                Content="_Search:"
+                                Target="{Binding ElementName=SearchText}" />
+                            <TextBox
+                                x:Name="SearchText"
+                                Grid.Column="1"
+                                AutomationProperties.HelpText="Filters the gallery navigation items as you type"
+                                Text="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <Button
+                                Grid.Column="2"
+                                Margin="6,0,0,0"
+                                AutomationProperties.Name="Clear search"
+                                Command="{Binding ClearSearchCommand}"
+                                Style="{StaticResource DxIconButtonStyle}"
+                                ToolTip="Clear search">
+                                <Path
+                                    Width="10"
+                                    Height="10"
+                                    Data="M 1 1 L 9 9 M 9 1 L 1 9"
+                                    Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                                    StrokeThickness="1.8" />
+                            </Button>
+                            <TextBlock
+                                Grid.Column="3"
+                                Margin="12,0,0,0"
+                                VerticalAlignment="Center"
+                                AutomationProperties.LiveSetting="Polite"
+                                Foreground="{DynamicResource DxTextSecondaryBrush}"
+                                Text="{Binding SearchSummary}" />
+                        </Grid>
+                        <ListBox
+                            Height="126"
+                            AutomationProperties.Name="Filtered navigation items"
+                            DisplayMemberPath="Name"
+                            ItemsSource="{Binding FilteredNavigationItems}" />
                     </StackPanel>
                 </Border>
 

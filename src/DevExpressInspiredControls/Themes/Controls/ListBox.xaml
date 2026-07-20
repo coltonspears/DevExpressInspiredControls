@@ -1,0 +1,122 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style x:Key="DxListBoxItemStyle" TargetType="{x:Type ListBoxItem}">
+        <Setter Property="Background" Value="{DynamicResource DxTransparentBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource DxTransparentBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Foreground" Value="{DynamicResource DxTextBrush}" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="MinHeight" Value="{DynamicResource DxListItemMinHeight}" />
+        <Setter Property="Padding" Value="{DynamicResource DxItemPadding}" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                    <Border
+                        x:Name="ItemChrome"
+                        Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        SnapsToDevicePixels="True">
+                        <ContentPresenter
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            ContentSource="Content"
+                            RecognizesAccessKey="True"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ItemChrome" Property="Background" Value="{DynamicResource DxSurfaceHoverBrush}" />
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsSelected" Value="True" />
+                                <Condition Property="Selector.IsSelectionActive" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="ItemChrome" Property="Background" Value="{DynamicResource DxSelectionBrush}" />
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsSelected" Value="True" />
+                                <Condition Property="Selector.IsSelectionActive" Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="ItemChrome" Property="Background" Value="{DynamicResource DxSelectionInactiveBrush}" />
+                        </MultiTrigger>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter TargetName="ItemChrome" Property="BorderBrush" Value="{DynamicResource DxAccentBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="ItemChrome" Property="Background" Value="{DynamicResource DxDisabledBrush}" />
+                            <Setter Property="Foreground" Value="{DynamicResource DxTextDisabledBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="DxListBoxStyle" TargetType="{x:Type ListBox}">
+        <Setter Property="Background" Value="{DynamicResource DxSurfaceBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource DxBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Foreground" Value="{DynamicResource DxTextBrush}" />
+        <Setter Property="FontFamily" Value="{DynamicResource DxFontFamily}" />
+        <Setter Property="FontSize" Value="{DynamicResource DxFontSize}" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="ItemContainerStyle" Value="{StaticResource DxListBoxItemStyle}" />
+        <Setter Property="KeyboardNavigation.DirectionalNavigation" Value="Contained" />
+        <Setter Property="ScrollViewer.CanContentScroll" Value="True" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="VirtualizingPanel.IsVirtualizing" Value="True" />
+        <Setter Property="VirtualizingPanel.VirtualizationMode" Value="Recycling" />
+        <Setter Property="VirtualizingPanel.ScrollUnit" Value="Pixel" />
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel />
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBox}">
+                    <Border
+                        x:Name="ListChrome"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{DynamicResource DxCornerRadius}"
+                        SnapsToDevicePixels="True">
+                        <ScrollViewer
+                            Focusable="False"
+                            HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                            VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
+                            <ItemsPresenter />
+                        </ScrollViewer>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                            <Setter TargetName="ListChrome" Property="BorderBrush" Value="{DynamicResource DxAccentBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="ListChrome" Property="Background" Value="{DynamicResource DxDisabledBrush}" />
+                            <Setter Property="Foreground" Value="{DynamicResource DxTextDisabledBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type ListBox}" BasedOn="{StaticResource DxListBoxStyle}" />
+    <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource DxListBoxItemStyle}" />
+</ResourceDictionary>

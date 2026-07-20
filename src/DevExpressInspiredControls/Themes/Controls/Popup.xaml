@@ -1,0 +1,19 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style x:Key="DxPopupStyle" TargetType="{x:Type Popup}">
+        <Setter Property="AllowsTransparency" Value="True" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="PopupAnimation" Value="Fade" />
+    </Style>
+
+    <Style x:Key="DxPopupChromeStyle" TargetType="{x:Type Border}">
+        <Setter Property="Padding" Value="{DynamicResource DxPopupPadding}" />
+        <Setter Property="Background" Value="{DynamicResource DxSurfaceBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource DxBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="{DynamicResource DxCornerRadius}" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+    </Style>
+</ResourceDictionary>

@@ -103,12 +103,52 @@ dotnet run --project tools/DevExpressInspiredControls.Capture -- docs/images/con
 | `RadioButton` | ![RadioButton](docs/images/controls/RadioButton.png) |
 | `ToggleSwitch` | ![ToggleSwitch](docs/images/controls/ToggleSwitch.png) |
 
+#### Scrolling and collections
+
+- `ScrollBar` and `ScrollViewer`
+- `ListBox` and `ListBoxItem`
+- `ListView`, `ListViewItem`, and `GridViewColumnHeader`
+- `TreeView` and `TreeViewItem`
+
+#### Commands and transient UI
+
+| Group | Preview |
+|-------|---------|
+| `ToggleButton`, `RepeatButton`, and icon buttons | ![Command buttons](docs/images/controls/CommandButtons.png) |
+| `Menu`, `MenuItem`, and `ContextMenu` | ![Menus](docs/images/controls/Menu.png) |
+| `ToolBar` and `Separator` | ![Toolbar](docs/images/controls/ToolBar.png) |
+| `ToolTip`, popup chrome, and `StatusBar` | ![Transient UI](docs/images/controls/TransientUi.png) |
+| Search composition | ![Search composition](docs/images/controls/SearchComposition.png) |
+
+Search remains an MVVM composition of `TextBox`, an icon-styled `Button`, and
+native collection controls; the library does not define a domain-specific
+search control.
+
+#### Layout and navigation
+
+| Group | Preview |
+|-------|---------|
+| `TabControl`, `TabItem`, `Expander`, `GroupBox`, `GridSplitter`, and segmented navigation | ![Layout and navigation](docs/images/controls/LayoutNavigation.png) |
+
+Layout recipes use native `Grid`, `DockPanel`, shared-size groups, and
+`GridSplitter`; the library does not define an application shell or custom
+split container.
+
+#### Input and status
+
+| Group | Preview |
+|-------|---------|
+| `PasswordBox` and `RichTextBox` | ![Extended editors](docs/images/controls/ExtendedEditors.png) |
+| `DatePicker` and `Calendar` | ![Date and calendar](docs/images/controls/DateTime.png) |
+| `Slider` and `ProgressBar` | ![Progress and range](docs/images/controls/ProgressRange.png) |
+
 Theme tokens (colors, brushes, fonts, metrics) live under `src/DevExpressInspiredControls/Themes/`.
 
 ## Documentation
 
 - [Getting started](docs/getting-started.md)
 - [Architecture and theming](docs/architecture.md)
+- [Composable control roadmap](docs/control-roadmap.md)
 - [Demo and recording guide](docs/demo-guide.md)
 - [Optional DevExpress integration](docs/devexpress-integration.md)
 - [Contributing](CONTRIBUTING.md)
